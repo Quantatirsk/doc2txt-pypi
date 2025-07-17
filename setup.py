@@ -6,7 +6,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="doc2txt",
-    version="1.0.3",
+    version="1.0.4",
     packages=find_packages(),
     include_package_data=True,
     package_data={
