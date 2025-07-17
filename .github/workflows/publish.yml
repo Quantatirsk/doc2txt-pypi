@@ -8,7 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
     steps:
     - uses: actions/checkout@v4
@@ -32,4 +31,5 @@ jobs:
     - name: 发布到PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
+        user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
