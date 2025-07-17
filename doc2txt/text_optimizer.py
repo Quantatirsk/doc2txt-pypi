@@ -98,7 +98,7 @@ def is_likely_paragraph_break(current_line, next_line, is_cjk):
                 return True
         
         # Check if next line starts with typical paragraph indicators
-        paragraph_starters = ['The ', 'This ', 'In ', 'For ', 'However, ', 'Therefore, ', 
+        paragraph_starters = ['The ', 'This ', 'In ', 'For ', 'However, ', 'Therefore, ', 'Chapter ', 'Article ',
                              'Moreover, ', 'Furthermore, ', 'Additionally, ', 'Nevertheless, ',
                              'Consequently, ', 'Similarly, ', 'Meanwhile, ', 'Finally, ',
                              'First, ', 'Second, ', 'Third, ', 'Last, ', 'Next, ']
@@ -139,8 +139,8 @@ def optimize_text(text):
     optimized_lines = []
 
     for i, line in enumerate(lines):
-        if i == 0:
-            # First line always gets added
+        if i < 3:
+            # First 3 lines always get added separately (title and initial content)
             optimized_lines.append(line)
         else:
             # Check if this should be a separate line/paragraph
@@ -176,4 +176,10 @@ def optimize_text(text):
             # Remove leading spaces and full-width spaces from non-table lines
             final_lines.append(line.lstrip(' \u3000'))
 
-    return '\n'.join(final_lines)
+    result = '\n'.join(final_lines)
+    
+    # Replace multiple consecutive newlines with single newline
+    import re
+    result = re.sub(r'\n{2,}', '\n', result)
+    
+    return result

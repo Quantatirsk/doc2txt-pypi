@@ -7,7 +7,7 @@ import requests
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from doc2txt import extract_text
 
-response = requests.get("https://share.teea.cn/api/files/demo.doc")
+response = requests.get("https://share.teea.cn/api/files/eng.doc")
 tmp = tempfile.NamedTemporaryFile(suffix=".doc", delete=False)
 tmp.write(response.content)
 tmp.close()
