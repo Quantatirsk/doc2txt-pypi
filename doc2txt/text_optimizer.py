@@ -182,4 +182,7 @@ def optimize_text(text):
     import re
     result = re.sub(r'\n{2,}', '\n', result)
     
+    # Remove leading and trailing whitespace from the entire text
+    result = result.strip()
+    
     return result
