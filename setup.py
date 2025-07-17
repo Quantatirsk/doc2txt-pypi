@@ -17,7 +17,9 @@ setup(
             "antiword_share/*",
         ],
     },
-    install_requires=[],
+    install_requires=[
+        "langdetect",
+    ],
     python_requires=">=3.6",
     author="Quant",
     author_email="pengzhia@mail.com",  # 需要填写
