@@ -18,7 +18,8 @@ setup(
         ],
     },
     install_requires=[
-        "langdetect",
+        "chardet>=5.2.0",
+        "fast-langdetect>=0.4.6",
     ],
     python_requires=">=3.6",
     author="Quant",
