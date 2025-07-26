@@ -1,10 +1,11 @@
 """Text optimization utilities for document text extraction."""
+import re
 
 try:
-    from langdetect import detect
-    LANGDETECT_AVAILABLE = True
+    from fast_langdetect import detect
+    FAST_LANGDETECT_AVAILABLE = True
 except ImportError:
-    LANGDETECT_AVAILABLE = False
+    FAST_LANGDETECT_AVAILABLE = False
 
 
 def is_table_row(line):
@@ -22,7 +23,7 @@ def is_cjk_language(text):
     Returns:
         bool: True if text is detected as CJK language, False otherwise
     """
-    if not LANGDETECT_AVAILABLE:
+    if not FAST_LANGDETECT_AVAILABLE:
         # Fallback: simple character-based detection for CJK
         cjk_chars = 0
         total_chars = 0
@@ -41,11 +42,21 @@ def is_cjk_language(text):
         return total_chars > 0 and cjk_chars / total_chars > 0.3
     
     try:
-        # Use langdetect for more accurate detection
-        detected_lang = detect(text)
-        return detected_lang in ['zh-cn', 'zh-tw', 'ja', 'ko']
+        # Use fast-langdetect for more accurate detection
+        # Take first 100 characters for better performance and accuracy
+        clean_text = text.replace('\n', ' ').strip()
+        if len(clean_text) < 3:
+            # Too short for reliable detection, use fallback
+            raise Exception("Text too short")
+        
+        # Use first 100 characters to avoid "text too long" warning
+        # fast-langdetect works best with shorter text samples
+        sample_text = clean_text[:100]
+        result = detect(sample_text)
+        detected_lang = result['lang'] if isinstance(result, dict) else result
+        return detected_lang in ['zh', 'ja', 'ko']
     except:
-        # Fallback to character-based detection if langdetect fails
+        # Fallback to character-based detection if fast-langdetect fails
         cjk_chars = 0
         total_chars = 0
         
@@ -79,7 +90,7 @@ def is_likely_paragraph_break(current_line, next_line, is_cjk):
         return True
     
     # If next line starts with space/indent, it's likely a new paragraph
-    if next_line.startswith(' ') or next_line.startswith('\u3000'):
+    if next_line.startswith(' ') or next_line.startswith('\u2000'):
         return True
     
     # Table rows should be separate
@@ -169,17 +180,13 @@ def optimize_text(text):
     # Final step: remove leading spaces from each line (except table rows)
     final_lines = []
     for line in optimized_lines:
-        if is_table_row(line):
-            # Keep table rows as they are
-            final_lines.append(line)
-        else:
-            # Remove leading spaces and full-width spaces from non-table lines
-            final_lines.append(line.lstrip(' \u3000'))
+        # Remove spaces and full-width spaces from lines
+        final_lines.append(line.strip(' \u2000'))
 
     result = '\n'.join(final_lines)
     
     # Replace multiple consecutive newlines with single newline
-    import re
+
     result = re.sub(r'\n{2,}', '\n', result)
     
     # Remove leading and trailing whitespace from the entire text

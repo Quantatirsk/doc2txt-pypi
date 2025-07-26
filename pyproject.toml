@@ -1,3 +1,11 @@
 [build-system]
-requires = ["setuptools>=45", "wheel"]
+requires = ["setuptools>=80", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "doc2txt"
+version = "1.0.7"
+description = "A cross-platform wrapper for antiword to extract text from MS Word documents."
+dependencies = [
+    "chardet>=5.2.0",
+    "fast-langdetect>=0.4.6"
