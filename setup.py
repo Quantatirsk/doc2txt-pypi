@@ -6,7 +6,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="doc2txt",
-    version="1.0.7",
+    version="1.0.8",
     packages=find_packages(),
     include_package_data=True,
     package_data={
@@ -19,7 +19,7 @@ setup(
     },
     install_requires=[
         "chardet>=5.2.0",
-        "fast-langdetect>=0.4.6",
+        "fast-langdetect>=0.3.2",
     ],
     python_requires=">=3.6",
     author="Quant",

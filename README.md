@@ -117,7 +117,7 @@ doc2txt/
 ## 依赖要求
 
 - `chardet>=5.2.0` - 字符编码检测
-- `fast-langdetect>=0.4.6` - 快速语言检测
+- `fast-langdetect>=0.3.2` - 快速语言检测
 
 ## 许可证
 
@@ -129,7 +129,7 @@ MIT License
 
 ## 更新日志
 
-### 1.0.7
+### 1.0.8
 - 替换 langdetect 为 fast-langdetect，提升80倍性能
 - 改进CJK语言检测准确性
 - 增强错误处理和输入验证
