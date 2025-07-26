@@ -9,3 +9,4 @@ description = "A cross-platform wrapper for antiword to extract text from MS Wor
 dependencies = [
     "chardet>=5.2.0",
     "fast-langdetect>=0.4.6"
+]
