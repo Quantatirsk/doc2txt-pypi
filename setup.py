@@ -23,7 +23,7 @@ setup(
     ],
     python_requires=">=3.6",
     author="Quant",
-    author_email="pengzhia@mail.com",  # 需要填写
+    author_email="pengzhia@gmail.com",  # 需要填写
     description="Python wrapper for antiword with bundled binary and data files",
     long_description=long_description,
     long_description_content_type="text/markdown",
